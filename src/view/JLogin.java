@@ -5,6 +5,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import controller.Criptografia;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -75,11 +78,20 @@ public class JLogin extends JFrame {
 		JButton btnNewButton = new JButton("Logar");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Criptografia criptografia = new Criptografia(passwordField.getText(), Criptografia.MD5);
+				System.out.println(criptografia.criptografar());
 				if (textFieldUsuario.getText() != null && 
 						!textFieldUsuario.getText().isEmpty() && 
 						passwordField.getText() != null && 
 						!passwordField.getText().isEmpty()) {
-					JOptionPane.showMessageDialog(btnNewButton, "Informações válidas");
+					if(criptografia.criptografar().equals("E10ADC3949BA59ABBE56E057F20F883E")) {
+						JOptionPane.showMessageDialog(btnNewButton, "Informações válidas");
+					dispose();
+					JPrincipal jPrincipal = new JPrincipal();
+					jPrincipal.setLocationRelativeTo(jPrincipal);
+					jPrincipal.setVisible(true);
+					}
+					
 					
 				}else {
 					JOptionPane.showMessageDialog(btnNewButton, "Verifique as informações", "Aviso", JOptionPane.WARNING_MESSAGE);
