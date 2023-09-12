@@ -14,6 +14,7 @@ import javax.swing.AbstractListModel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import dao.DAO;
 import model.Cliente;
 import model.ModeloTabela;
 
@@ -48,9 +49,14 @@ public class JPrincipal extends JFrame {
 	 * Create the frame.
 	 */
 	public JPrincipal() {
-		clientes = new ArrayList<>();
-		clientes.add(new Cliente("1", "Joao", "joao@email.com", "999.999.999-99", "9999-9999", "Não informado"));
-		clientes.add(new Cliente("2", "Maria", "maria@email.com", "999.999.999-99", "9999-9999", "Não informado"));
+		DAO dao = new DAO();
+		try {
+			clientes= dao.listarClientes();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
